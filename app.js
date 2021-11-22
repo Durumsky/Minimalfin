@@ -39,7 +39,7 @@ app.use(
       maxAge: 60000 // 60 * 1000 ms === 1 min
     },
     store: MongoStore.create({
-      mongoUrl: 'mongodb://localhost/localPassport'
+      mongoUrl: process.env.MONGODB_URI
     })
   })
 );
@@ -75,7 +75,7 @@ passport.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // default value for title local
-const projectName = "localPassport";
+const projectName = "minimalfin";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
 app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
