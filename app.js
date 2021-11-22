@@ -87,6 +87,9 @@ app.use("/", index);
 const router = require('./routes/auth');
 app.use('/', router);
 
+const transactions = require('./routes/transactions');
+app.use('/', transactions)
+
 
 
 
