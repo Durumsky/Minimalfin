@@ -1,18 +1,41 @@
 <header>
-    <nav>
-      <a class="navbar-brand" href="/">
+  <nav>
+    <a class="navbar-brand" href="/">
       <div class="logo-image">
-            <img src="/public/images/d0250cfdc0a3e3e1838e40dbc392f0f2 (1).png" class="img-fluid">
+        <img
+          src="/public/images/d0250cfdc0a3e3e1838e40dbc392f0f2 (1).png"
+          class="img-fluid"
+        />
       </div>
-</a>
-      <details>
-  <summary></summary>
-  <nav class="menu">
-    <a href="#link">Wallet</a>
-    <a href="#link">Inspiration</a>
-    <a href="#link">Numbers</a>
-    <a href="#link">Logout</a>
+    </a>
+    <details>
+      <summary></summary>
+      <nav class="menu">
+        <a href="#link">Wallet</a>
+        <a href="#link">Inspiration</a>
+        <a href="#link">Numbers</a>
+        <a href="#link">Logout</a>
+      </nav>
+    </details>
   </nav>
-</details>
-    </nav>
-  </header>
+</header>
+
+<section class="transaction-form" method="POST">
+
+  <form action="/transaction">
+
+  <input
+      id="transaction"
+      type="number"
+      step="any"
+      name="transaction"
+      placeholder="Add a transaction"
+    />
+
+  </form>
+
+</section>
+
+<section class="transactions-list">
+
+</section>

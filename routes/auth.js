@@ -11,15 +11,22 @@ const User = require("../models/User.model.js");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-router.get("/signup", (req, res, next) => res.render("auth/signup"));
+// router.get("/signup", (req, res, next) => res.render("auth/signup"));
 
 router.post("/signup", (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
 
   // 1. Check username and password are not empty
   if (!username || !password) {
-    res.render("auth/signup", {
+    res.render("index", {
       errorMessage: "Indicate username and password",
+    });
+    return;
+  }
+
+  if (!email) {
+    res.render("index", {
+      errorMessage: "Indicate an email",
     });
     return;
   }
@@ -28,7 +35,7 @@ router.post("/signup", (req, res, next) => {
     .then((user) => {
       // 2. Check user does not already exist
       if (user !== null) {
-        res.render("auth/signup", { message: "The username already exists" });
+        res.render("index", { message: "The username already exists" });
         return;
       }
 
@@ -53,7 +60,7 @@ router.post("/signup", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.get("/login", (req, res, next) => res.render("auth/login"));
+// router.get("/login", (req, res, next) => res.render("auth/login"));
 
 router.post(
   "/login",
