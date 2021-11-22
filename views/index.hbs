@@ -1,4 +1,53 @@
-<h1>{{title}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
-<a href="/signup">Signup</a>
-<a href="/login">Login</a>
+<h1>minimalfin</h1>
+
+
+
+<form action="/signup" method="POST" id="form-container">
+<h2>Signup</h2>
+  <div>
+    <input id="username" type="text" name="username" placeholder="Choose a username" />
+  </div>
+  <div>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      placeholder="email"
+    />
+  </div>
+  <div>
+    <input
+      id="password"
+      type="password"
+      name="password"
+      placeholder="Create a password"
+    />
+  </div>
+
+  {{#if errorMessage}}
+    <div class="error-message">{{errorMessage}}</div>
+  {{/if}}
+
+  <div>
+    <button>Create account</button>
+  </div>
+</form>
+
+<form action="/login" method="POST">
+<h2>Login</h2>
+ <div>
+ <input type="text" name="username" placeholder="Username">
+ </div>
+ 
+ <div>
+ <input type="password" name="password" placeholder="Password">
+ </div>
+ 
+ {{#if errorMessage}}
+ <div class="error-message">{{errorMessage}}</div>
+ {{/if}}
+ 
+ <div>
+ <button>Log in</button>
+ </div>
+</form>
