@@ -24,4 +24,4 @@ require("./error-handling")(app);
 
 //test
 
-module.exports = app
+module.exports = app;
