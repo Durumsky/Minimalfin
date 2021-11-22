@@ -65,19 +65,19 @@ router.post("/signup", (req, res, next) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/private-page",
+    successRedirect: "/wallet",
     failureRedirect: "/login",
   })
 );
 
-router.get("/private-page", (req, res) => {
+router.get("/wallet", (req, res) => {
   if (!req.user) {
     res.redirect("/login"); // can't access the page, so go and log in
     return;
   }
 
   // ok, req.user is defined
-  res.render("private", { user: req.user });
+  res.render("wallet", { user: req.user });
 });
 
 router.get("/logout", (req, res) => {
