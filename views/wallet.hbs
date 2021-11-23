@@ -29,7 +29,7 @@
       type="number"
       step="any"
       name="transaction"
-      placeholder="Add a transaction"
+      placeholder="0€"
     />
   <select name="tag" id="tag">
     
@@ -45,8 +45,13 @@
     <option value="other">Other</option>
   
   </select>
-  <button>+</button>
-  <button>-</button>
+
+  <select name="sign" id="sign">
+        <option value="-">- Expense</option>
+        <option value="+">+ Income</option>
+  </select>
+  <button>Add</button>
+
 
   </form>
 
@@ -54,7 +59,7 @@
 
 <section class="transactions-list">
   {{#each transactions}}
-  <h5>{{transaction}}</h5>
+  <h5><span>{{sign}}</span>{{transaction}}</h5>
   <p>{{tag}}</p>
   {{/each}}
 
