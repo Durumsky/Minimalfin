@@ -70,15 +70,7 @@ router.post(
   })
 );
 
-router.get("/wallet", (req, res) => {
-  if (!req.user) {
-    res.redirect("/login"); // can't access the page, so go and log in
-    return;
-  }
-  req.session.user = req.user
-  // ok, req.user is defined
-  res.render("wallet", { user: req.user });
-});
+
 
 router.get("/logout", (req, res) => {
   req.logout();

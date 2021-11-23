@@ -12,9 +12,21 @@ const Transaction = require("../models/Transaction.model.js");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
+router.get("/wallet", (req, res) => {
+  if (!req.user) {
+    res.redirect("/login"); // can't access the page, so go and log in
+    return;
+  }
+  req.session.user = req.user
+  // ok, req.user is defined
+  res.render("wallet", { user: req.user });
+});
+
 router.post("/transaction", (req, res, next) => {
     const { transaction, tag } = req.body;
     const currentUser = req.session.user
+
+    console.log("the user:", currentUser)
   
     Transaction.create({
       transaction: transaction,
