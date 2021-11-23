@@ -6,6 +6,7 @@ const passport = require("passport");
 
 // User model
 const User = require("../models/User.model.js");
+const Transaction = require("../models/Transaction.model.js");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -14,6 +15,31 @@ const bcryptSalt = 10;
 const isLoggedIn = require("./middlewareLoggedIn");
 const isLoggedOut = require("./middlewareLoggedOut");
 
+// router.get("/wallet", isLoggedIn, (req, res) => {
+// res.render("wallet")
+// })
+
+router.get("/wallet", isLoggedIn, (req, res) => {
+  req.session.user = req.user
+  console.log('hola')
+  
+  
+  // ok, req.user is defined
+  Transaction.find({user: req.user._id}).populate("user")
+    .then(transactionsFromDB => {
+      res.render('wallet', {transactions: transactionsFromDB})
+      console.log('hello')
+    })
+  
+});
+
+router.get("/login", isLoggedIn, (req, res) => {
+  res.redirect("/wallet")
+  })
+
+router.get("/signup", isLoggedIn, (req, res) => {
+  res.redirect("/wallet")
+  })
 
 
 router.post('/signup', (req, res, next) => {
@@ -47,7 +73,7 @@ router.post('/signup', (req, res, next) => {
 
       User.create({ username: username, email: email, password: hash })
         .then((createdUser) => {
-          res.render('wallet');
+          res.redirect('/wallet');
         })
         .catch((err) => {
           next(err);
@@ -56,9 +82,7 @@ router.post('/signup', (req, res, next) => {
   });
 });
 
-router.get("/login", isLoggedOut, (req, res, next) => res.render("index"));
-
-router.post("/login", isLoggedOut, (req, res, next) => {
+router.post('/login', (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username) {
@@ -108,7 +132,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 router.get("/logout", (req, res) => {
   req.session.destroy()
   req.logout();
-  res.redirect("/index");
+  res.render("index");
 });
 
 module.exports = router;

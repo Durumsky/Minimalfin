@@ -12,34 +12,26 @@ const Transaction = require("../models/Transaction.model.js");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-router.get("/wallet", (req, res) => {
-  if (!req.user) {
-    res.redirect("/index"); // can't access the page, so go and log in
-    return;
-  }
-  req.session.user = req.user
-  // ok, req.user is defined
-  Transaction.find().populate("user")
-    .then(transactionsFromDB => {
-      res.render('wallet', {transactions: transactionsFromDB})
-    })
-  
-});
+const isLoggedIn = require("./middlewareLoggedIn");
+
+
 
 router.post("/transaction", (req, res, next) => {
     const { transaction, tag } = req.body;
     const currentUser = req.session.user
-
-    console.log("the user:", currentUser)
   
     Transaction.create({
       transaction: transaction,
       tag: tag,
-      user: currentUser._id
+      user: currentUser
     
-    }).then((createdTransaction) => {
-      res.redirect(`/wallet`);
+    })
+   
+    .then((createdTransaction) => {
+      res.redirect("/wallet");
     });
+
+   
   });
 
 
