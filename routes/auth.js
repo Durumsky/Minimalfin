@@ -19,20 +19,6 @@ const isLoggedOut = require("./middlewareLoggedOut");
 // res.render("wallet")
 // })
 
-router.get("/wallet", isLoggedIn, (req, res) => {
-  req.session.user = req.user
-  console.log('hola')
-  
-  
-  // ok, req.user is defined
-  Transaction.find({user: req.user._id}).populate("user")
-    .then(transactionsFromDB => {
-      res.render('wallet', {transactions: transactionsFromDB})
-      console.log('hello')
-    })
-  
-});
-
 router.get("/login", isLoggedIn, (req, res) => {
   res.redirect("/wallet")
   })
