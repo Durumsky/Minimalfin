@@ -11,70 +11,104 @@ const User = require("../models/User.model.js");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-// router.get("/signup", (req, res, next) => res.render("auth/signup"));
+const isLoggedIn = require("./middlewareLoggedIn");
+const isLoggedOut = require("./middlewareLoggedOut");
 
-router.post("/signup", (req, res, next) => {
+
+
+router.post('/signup', (req, res, next) => {
   const { username, email, password } = req.body;
 
-  // 1. Check username and password are not empty
-  if (!username || !password) {
-    res.render("index", {
-      errorMessage: "Indicate username and password",
+
+  if (password.length < 8) {
+    res.render('index', {
+      errorMessage: 'Your password has to be at least 8 characters!',
     });
     return;
   }
 
-  if (!email) {
-    res.render("index", {
-      errorMessage: "Indicate an email",
-    });
+  if (username.length === 0) {
+    res.render('index', { errorMessage: 'Please provide a username!' });
     return;
   }
 
-  User.findOne({ username })
-    .then((user) => {
-      // 2. Check user does not already exist
-      if (user !== null) {
-        res.render("index", { message: "The username already exists" });
-        return;
-      }
+  if (email.length === 0) {
+    res.render('index', { errorMessage: 'Please provide an email address!' });
+    return;
+  }
 
-      // Encrypt the password
-      const salt = bcrypt.genSaltSync(bcryptSalt);
-      const hashPass = bcrypt.hashSync(password, salt);
+  User.findOne({ username: username }).then((userFromDB) => {
+    if (userFromDB !== null) {
+      res.render('index', { errorMessage: 'This username is already taken' });
+      return;
+    } else {
+      const salt = bcrypt.genSaltSync();
+      const hash = bcrypt.hashSync(password, salt);
 
-      //
-      // Save the user in DB
-      //
-
-      const newUser = new User({
-        username,
-        password: hashPass,
-      });
-
-      newUser
-        .save()
-        .then(() => res.redirect("/"))
-        .catch((err) => next(err));
-    })
-    .catch((err) => next(err));
+      User.create({ username: username, email: email, password: hash })
+        .then((createdUser) => {
+          res.render('wallet');
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
+  });
 });
 
-// router.get("/login", (req, res, next) => res.render("auth/login"));
+router.get("/login", isLoggedOut, (req, res, next) => res.render("index"));
 
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/wallet",
-    failureRedirect: "/login",
-  })
-);
+router.post("/login", isLoggedOut, (req, res, next) => {
+  const { username, password } = req.body;
 
+  if (!username) {
+    return res
+      .status(400)
+      .render("index", { loginError: "Please provide your username." });
+  }
+
+  if (password.length < 8) {
+    return res.status(400).render("index", {
+      loginError: "Your password needs to be at least 8 characters long.",
+    });
+  }
+
+  // Search the database for a user with the username submitted in the form
+  User.findOne({ username })
+    .then((user) => {
+      // If the user isn't found, send the message that user provided wrong credentials
+      if (!user) {
+        return res
+          .status(400)
+          .render("index", { loginError: "Wrong credentials." });
+      }
+
+      // If user is found based on the username, check if the in putted password matches the one saved in the database
+      bcrypt.compare(password, user.password).then((isSamePassword) => {
+        if (!isSamePassword) {
+          return res
+            .status(400)
+            .render("index", { loginError: "Wrong credentials." });
+        }
+        req.session.user = user;
+        // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
+        return res.redirect("/wallet");
+      });
+    })
+
+    .catch((err) => {
+      // in this case we are sending the error handling to the error handling middleware that is defined in the error handling file
+      // you can just as easily run the res.status that is commented out below
+      next(err);
+      // return res.status(500).render("login", { errorMessage: err.message });
+    });
+});
 
 
 router.get("/logout", (req, res) => {
+  req.session.destroy()
   req.logout();
-  res.redirect("/");
+  res.redirect("/index");
 });
 
 module.exports = router;
