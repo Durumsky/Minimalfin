@@ -4,6 +4,7 @@ const transactionSchema = new Schema(
   {
     transaction: Number,
     tag: String,
+    sign: String,
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
