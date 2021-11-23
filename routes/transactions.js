@@ -14,12 +14,16 @@ const bcryptSalt = 10;
 
 router.get("/wallet", (req, res) => {
   if (!req.user) {
-    res.redirect("/login"); // can't access the page, so go and log in
+    res.redirect("/index"); // can't access the page, so go and log in
     return;
   }
   req.session.user = req.user
   // ok, req.user is defined
-  res.render("wallet", { user: req.user });
+  Transaction.find().populate("user")
+    .then(transactionsFromDB => {
+      res.render('wallet', {transactions: transactionsFromDB})
+    })
+  
 });
 
 router.post("/transaction", (req, res, next) => {

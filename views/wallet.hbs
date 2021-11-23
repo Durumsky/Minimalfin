@@ -35,11 +35,15 @@
 
   </select>
   <button>+</button>
+  <button>-</button>
 
   </form>
 
 </section>
 
 <section class="transactions-list">
+  {{#each transactions}}
+  <h3 >{{transaction}}</h3>
+  {{/each}}
 
 </section>
