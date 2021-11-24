@@ -1,6 +1,20 @@
+body {
+  margin: 0;
+}
+
 .logo-image{
   width: 300px;
   height: 46px;
   overflow: hidden;
   margin-top: 10px;
+}
+
+.container {
+  height: 100vh;
+}
+
+.chart-wrapper {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
 }

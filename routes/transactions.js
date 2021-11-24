@@ -7,6 +7,7 @@ const passport = require("passport");
 // User and transaction models
 const User = require("../models/User.model.js");
 const Transaction = require("../models/Transaction.model.js");
+//const Chart = require("..public/js/charts.js")
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
