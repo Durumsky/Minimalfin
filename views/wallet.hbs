@@ -20,6 +20,9 @@
   </nav>
 </section>
 
+<h1>{{result}}</h1>
+
+
 <section class="transaction-form" >
 
   <form action="/transaction" method="POST">
@@ -27,9 +30,10 @@
   <input
       id="transaction"
       type="number"
-      step="any"
+      step="01"
       name="transaction"
       placeholder="0€"
+      value= 0
     />
   <select name="tag" id="tag">
     
