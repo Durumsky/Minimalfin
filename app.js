@@ -90,7 +90,8 @@ app.use('/', router);
 const transactions = require('./routes/transactions');
 app.use('/', transactions)
 
-
+const numbersShowall = require('./routes/transactions');
+app.use('/', numbersShowall)
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
