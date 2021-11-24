@@ -90,8 +90,15 @@ app.use('/', router);
 const transactions = require('./routes/transactions');
 app.use('/', transactions)
 
+const numbers = require('./routes/numbers');
+app.use('/', numbers);
+
+const inspiration = require('./routes/inspiration');
+app.use('/', inspiration);
+
 const numbersShowall = require('./routes/transactions');
 app.use('/', numbersShowall)
+
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

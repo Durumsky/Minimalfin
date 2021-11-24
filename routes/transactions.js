@@ -4,7 +4,7 @@ const { Router } = require("express");
 const router = new Router();
 const passport = require("passport");
 
-// User model
+// User and transaction models
 const User = require("../models/User.model.js");
 const Transaction = require("../models/Transaction.model.js");
 
