@@ -96,6 +96,8 @@ app.use('/', numbers);
 const inspiration = require('./routes/inspiration');
 app.use('/', inspiration);
 
+const numbersShowall = require('./routes/transactions');
+app.use('/', numbersShowall)
 
 
 

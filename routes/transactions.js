@@ -39,6 +39,30 @@ router.get("/wallet", isLoggedIn, (req, res) => {
   });
 })
 
+router.get("/walletShowall", isLoggedIn, (req, res) => {
+  req.session.user = req.user;
+  let total = 0;
+  Transaction.find({ user: req.user._id }).then((transactionsFromDB) => {
+    transactionsFromDB.forEach(function (trans) {
+      if (trans.sign === "+") {
+        total += trans.transaction;
+      } else {
+        total -= trans.transaction;
+      }
+      return total;
+    });
+  Transaction.find({ user: req.user._id })
+      .populate("user")
+      .sort({ $natural: -1 })
+      .then((transactionsFromDB) => {
+        res.render("walletShowall", {
+          transactions: transactionsFromDB,
+          result: total
+        });
+      });
+  });
+})
+
 router.post("/transaction", (req, res, next) => {
     const { transaction, sign, tag } = req.body;
     const currentUser = req.session.user
