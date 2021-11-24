@@ -1,4 +1,3 @@
-// routes/auth.routes.js
 
 const { Router } = require("express");
 const router = new Router();
@@ -15,11 +14,9 @@ const bcryptSalt = 10;
 const isLoggedIn = require("./middlewareLoggedIn");
 
 
-router.get("/numbers", isLoggedIn, (req, res) => {
+router.get("/inspiration", isLoggedIn, (req, res) => {
     req.session.user = req.user;
-    
-    Transaction.find({ user: req.user._id })
-    .then();
+    res.render('inspiration')
   })
 
 

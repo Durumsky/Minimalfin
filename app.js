@@ -90,6 +90,12 @@ app.use('/', router);
 const transactions = require('./routes/transactions');
 app.use('/', transactions)
 
+const numbers = require('./routes/numbers');
+app.use('/', numbers);
+
+const inspiration = require('./routes/inspiration');
+app.use('/', inspiration);
+
 
 
 
