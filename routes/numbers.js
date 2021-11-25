@@ -7,6 +7,7 @@ const passport = require("passport");
 // User and Transaction models
 const User = require("../models/User.model.js");
 const Transaction = require("../models/Transaction.model.js");
+const Inspiration = require("../models/Inspiration.model.js");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -17,9 +18,9 @@ const isLoggedIn = require("./middlewareLoggedIn");
 
 router.get("/numbers", isLoggedIn, (req, res) => {
   req.session.user = req.user;
-  let total = 0; 
-  
+  const currentUser = req.session.user;
 
+  //variables:
   let groceriesTotal = 0;
   let restaurantTotal = 0;
   let goingOutTotal = 0;
@@ -31,55 +32,91 @@ router.get("/numbers", isLoggedIn, (req, res) => {
   let subscriptionsTotal = 0;
   let otherTotal = 0;
 
-  Transaction.find({ user: req.user._id }).then((transactionsFromDB) => {
+  let biggestTag
+
+  Transaction.find({}).then((transactionsFromDB) => {
     transactionsFromDB.forEach(function (trans) {
-        total += trans.transaction;
-  
-      if (trans.tag === 'groceries'){
-        groceriesTotal += trans.transaction;
-      }
+      //console.log(trans.tag, trans.user, currentUser._id)
 
-      if (trans.tag === 'restaurant') {
-        restaurantTotal += trans.transaction;
-      }
+      Transaction.find({ user: req.user._id }).then((transactionsFromDB) => {
+        transactionsFromDB.forEach(function (trans) {
+          if (trans.tag === "groceries") {
+            groceriesTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'going-out') {
-        goingOutTotal += trans.transaction;
-      } 
+          if (trans.tag === "restaurant") {
+            restaurantTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'shopping') {
-        shoppingTotal += trans.transaction;
-      }
+          if (trans.tag === "going-out") {
+            goingOutTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'transportation') {
-        transportationTotal += trans.transaction;
-      }
+          if (trans.tag === "shopping") {
+            shoppingTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'home') {
-        homeTotal += trans.transaction;
-      }
+          if (trans.tag === "transportation") {
+            transportationTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'health') {
-        healthTotal += trans.transaction;
-      }
+          if (trans.tag === "home") {
+            homeTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'sport') {
-        sportTotal += trans.transaction;
-      }
+          if (trans.tag === "health") {
+            healthTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'subscriptions') {
-        subscriptionsTotal += trans.transaction;
-      }
+          if (trans.tag === "sport") {
+            sportTotal += trans.transaction;
+          }
 
-      if (trans.tag === 'other') {
-        otherTotal += trans.transaction;
-      }
+          if (trans.tag === "subscriptions") {
+            subscriptionsTotal += trans.transaction;
+          }
 
-      return total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal;
+          if (trans.tag === "other") {
+            otherTotal += trans.transaction;
+          }
+
+          var allTagsTotals = {
+            groceries: groceriesTotal,
+            restaurant: restaurantTotal,
+            goingOut: goingOutTotal,
+            shopping: shoppingTotal,
+            transportation: transportationTotal,
+            home: homeTotal,
+            health: healthTotal,
+            subscriptions: subscriptionsTotal,
+            other: otherTotal,
+          };
+          var biggestExpense = Math.max.apply(
+              null,
+              Object.values(allTagsTotals)
+            ),
+            expense = Object.keys(allTagsTotals).find(function (a) {
+              return allTagsTotals[a] === biggestExpense;
+            });
+
+            if (trans.tag === expense && trans.user === currentUser._id) {
+              biggestTag = trans.tag
+            }     
+        });
     });
-    res.render('numbers')
   })
-})
+
+    Inspiration.find({ user: req.user._id })
+      .populate("user")
+      .sort({ $natural: -1 })
+      .limit(5)
+      .then((inspirationsFromDB) => {
+        res.render("inspiration", {
+          inspirations: inspirationsFromDB, biggestTag: biggestTag
+        });
+      });
+  });
+});
 
 
 
