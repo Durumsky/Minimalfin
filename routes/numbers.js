@@ -111,8 +111,8 @@ router.get("/numbers", isLoggedIn, (req, res) => {
       .sort({ $natural: -1 })
       .limit(5)
       .then((inspirationsFromDB) => {
-        res.render("inspiration", {
-          inspirations: inspirationsFromDB, biggestTag: biggestTag
+        res.render("numbers", {
+          inspirations: inspirationsFromDB, biggestTag: biggestTag, 
         });
       });
   });
