@@ -75,9 +75,6 @@ router.get("/numbers", isLoggedIn, (req, res) => {
         otherTotal += trans.transaction;
       }
 
-      let allTagsTotals = [groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal, homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal]
-      module.exports =  allTagsTotals 
-
       return total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal;
     });
     res.render('numbers')
