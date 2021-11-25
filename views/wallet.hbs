@@ -33,7 +33,6 @@
       step="01"
       name="transaction"
       placeholder="0€"
-      value= 0
     />
   <select name="tag" id="tag">
     
@@ -58,13 +57,13 @@
 
 <section class="transactions-list">
   {{#each transactions}}
-  <h5><span>{{sign}}</span>{{transaction}}</h5>
+  <h5><span>-</span>{{transaction}}</h5>
   <p>{{tag}}</p>
   {{/each}}
  <form action="/walletShowall">
     <input type="submit" value="Show all" />
 </form>
 
-<h1>Balance: {{result}}</h1>
+<h1>Balance: -{{result}}</h1>
 
 </section>
