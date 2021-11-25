@@ -4,10 +4,7 @@ const transactionSchema = new Schema(
   {
     transaction: Number,
     tag: String,
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    user: String,
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

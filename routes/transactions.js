@@ -65,7 +65,8 @@ router.post("/transaction", (req, res, next) => {
   
     Transaction.create({
       transaction: transaction,
-      user: currentUser
+      tag: tag,
+      user: currentUser._id
     
     })
    
