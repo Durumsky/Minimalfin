@@ -105,9 +105,6 @@ app.use('/', inspiration);
 const numbersShowall = require('./routes/transactions');
 app.use('/', numbersShowall)
 
-const charts = require('./public/js/charts.js');
-app.use('/', charts)
-
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
