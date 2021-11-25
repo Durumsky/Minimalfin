@@ -126,7 +126,9 @@ router.get("/inspiration", isLoggedIn, (req, res) => {
           }
         })
         res.render("inspiration", {
+
           inspirations: inspirationsFromDB, biggestTag: biggestTag, currentUser: currentUser, owner: owner, newArray: newArray
+
         });
       });
   });
