@@ -1,19 +1,58 @@
 <section>
   <nav>
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand">
       <div class="logo-image">
         <img src="/images/logoimage.png"
           class="img-fluid"/>
       </div>
     </a>
-    <details>
-      <summary></summary>
-      <nav class="menu">
-        <a href="/wallet">Wallet</a>
-        <a href="/inspiration">Inspiration</a>
-        <a href="/numbers">Numbers</a>
-        <a href="/logout">Logout</a>
-      </nav>
-    </details>
+    <nav role="navigation">
+  <div id="menuToggle">
+     <input type="checkbox" />
+     <span></span>
+    <span></span>
+    <span></span>
+    
+      <ul id="menu"> 
+        <a href="/wallet"><li> Wallet</li></a>
+        <a href="/inspiration"><li> Inspiration</li></a>
+         <a href="/numbers"><li> Numbers</li></a>
+        <a href="/logout"><li> Logout</li></a>
+        </ul>
+        </div>
   </nav>
+</section>
+
+
+
+<section class="inspiration-form" >
+
+  <form action="/inspiration" method="POST">
+
+  <input
+      id="inspiration"
+      type="text"
+      step="01"
+      name="inspiration"
+      placeholder="Add your idea here"
+    />
+  <select name="tag" id="tag">
+    
+    <option value="groceries">Groceries</option>
+    <option value="restaurant">Restaurant</option>
+    <option value="going-out">Going Out</option>
+    <option value="shopping">Shopping</option>
+    <option value="transportation">Transportation</option>
+    <option value="home">Home</option>
+    <option value="health">Health</option>
+    <option value="sport">Sport</option>
+    <option value="subscriptions">Subscriptions</option>
+    <option value="other">Other</option>
+  
+  </select>
+
+  <button>Add your idea</button>
+
+  </form>
+
 </section>

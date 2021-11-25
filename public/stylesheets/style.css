@@ -5,6 +5,7 @@ body {
 .logo-image{
   width: auto;
   height: auto;
+  text-align: center;
 }
 
 body
@@ -12,6 +13,7 @@ body
   margin: 0;
   padding: 0;  
   font-family: "Avenir Next", "Avenir", sans-serif;
+  text-align: center;
 }
 
 #menuToggle
@@ -157,7 +159,8 @@ body
   width: 500px;
   height: 500px;
   margin: 0 auto;
-=======
+}
+
 /*
  * And let's slide it in from the left
  */
