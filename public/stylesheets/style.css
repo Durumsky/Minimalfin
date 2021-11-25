@@ -8,6 +8,12 @@ body {
   text-align: center;
 }
 
+#inspiration {
+  height: 100px;
+  font-size:14pt;
+  min-height:200px;
+}
+
 body
 {
   margin: 0;
