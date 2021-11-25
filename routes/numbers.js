@@ -17,7 +17,8 @@ const isLoggedIn = require("./middlewareLoggedIn");
 
 router.get("/numbers", isLoggedIn, (req, res) => {
   req.session.user = req.user;
-  let total = 0;
+  let total = 0; 
+  
 
   let groceriesTotal = 0;
   let restaurantTotal = 0;
@@ -74,7 +75,8 @@ router.get("/numbers", isLoggedIn, (req, res) => {
         otherTotal += trans.transaction;
       }
 
-      console.log(total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal)
+      let allTagsTotals = [groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal, homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal]
+      module.exports =  allTagsTotals 
 
       return total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal;
     });
