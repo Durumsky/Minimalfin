@@ -4,10 +4,7 @@ const inspirationSchema = new Schema(
   {
     text: String,
     tag: String,
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    user: String
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

@@ -23,10 +23,39 @@
   </nav>
 </section>
 
-<section class = "inspirations-list">
-  {{#each inspirations}}
-  <h5>{{tag}}</h5>
-  <p>{{text}}</p>
+<section class = "experiment">
+  {{#each newArray}}
+  <h5>{{this._doc.tag}}</h5>
+  <p>{{this._doc.text}}</p>
+  {{#if owner}}
+ <a href="/inspiration/delete/{{this._doc._id}}"><button type="button" class="collapsible">Delete</button></a>
+<button type="button" class="collapsible">Edit</button>
+ <div class= "content">
+   <p>
+     <form action="/inspiration" method="POST">
+  <textarea id='inspiration' rows='10', name='text'>{{this._doc.text}}</textarea>
+  <br>
+  <select name="tag" id="tag">
+    
+    <option value="Groceries">Groceries</option>
+    <option value="Restaurant">Restaurant</option>
+    <option value="Entertainment">Entertainment</option>
+    <option value="Shopping">Shopping</option>
+    <option value="Transportation">Transportation</option>
+    <option value="Home">Home</option>
+    <option value="Health">Health</option>
+    <option value="Sport">Sport</option>
+    <option value="Subscriptions">Subscriptions</option>
+    <option value="Other">Other</option>
+  
+  </select>
+
+  <a href="/inspiration/edit/{{this._doc._id}}"><button type="submit">Edit your idea</button></a>
+
+  </form>
+   </p>
+ </div>
+  {{/if}}
    {{/each}}
 </section>
 
@@ -56,9 +85,21 @@
 
 </section>
 
-
-<p>{{biggestTag}}</p>
-
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
 
 
 

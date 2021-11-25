@@ -17,7 +17,7 @@ const isLoggedIn = require("./middlewareLoggedIn");
 
 router.get("/inspiration", isLoggedIn, (req, res) => {
   req.session.user = req.user;
-  const currentUser = req.session.user;
+  const currentUser = req.session.user._id;
 
   //variables:
   let groceriesTotal = 0;
@@ -32,6 +32,7 @@ router.get("/inspiration", isLoggedIn, (req, res) => {
   let otherTotal = 0;
 
   let biggestTag
+  let owner
 
   Transaction.find({}).then((transactionsFromDB) => {
     transactionsFromDB.forEach(function (trans) {
@@ -91,43 +92,89 @@ router.get("/inspiration", isLoggedIn, (req, res) => {
             other: otherTotal,
           };
           var biggestExpense = Math.max.apply(
-              null,
-              Object.values(allTagsTotals)
-            ),
+            null,
+            Object.values(allTagsTotals)
+          ),
             expense = Object.keys(allTagsTotals).find(function (a) {
               return allTagsTotals[a] === biggestExpense;
             });
 
-            if (trans.tag === expense && trans.user === currentUser._id) {
-              biggestTag = trans.tag
-            }     
+          if (trans.tag === expense && trans.user === currentUser._id) {
+            biggestTag = trans.tag
+          }
         });
-    });
-  })
+      });
+    })
 
-    Inspiration.find({ user: req.user._id })
-      .populate("user")
+    Inspiration.find()
       .sort({ $natural: -1 })
       .limit(5)
       .then((inspirationsFromDB) => {
+        const newArray = inspirationsFromDB.map(post => {
+          console.log(post.user, currentUser)
+          if (post.user === currentUser) {
+
+            return {
+              ...post,
+              owner: true
+            }
+          } else {
+            return {
+              ...post,
+              owner: false
+            }
+          }
+        })
         res.render("inspiration", {
-          inspirations: inspirationsFromDB, biggestTag: biggestTag,
+
+          inspirations: inspirationsFromDB, biggestTag: biggestTag, currentUser: currentUser, owner: owner, newArray: newArray
+
         });
       });
   });
-});
 
-router.post("/inspiration", (req, res, next) => {
-  const { tag, text } = req.body;
-  const currentUser = req.session.user;
+  router.post("/inspiration", (req, res, next) => {
+    const { tag, text } = req.body;
+    const currentUser = req.session.user;
 
-  Inspiration.create({
-    text: text,
-    tag: tag,
-    user: currentUser,
-  }).then((createdInspiration) => {
-    res.redirect("/inspiration");
+    Inspiration.create({
+      text: text,
+      tag: tag,
+      user: currentUser._id
+    }).then((createdInspiration) => {
+      res.redirect("/inspiration");
+    });
   });
+})
+
+router.post('/inspiration/edit/:id', (req, res, next) => {
+  const id = req.params.id
+
+  const { text, tag, user } = req.body
+
+  Celebrity.findByIdAndUpdate(id, {
+      text,
+      tag,
+      user,
+  }, { new: true })
+      .then(updatedInspiration => {
+          res.redirect('/inspiration')
+      })
+      .catch(err => next(err))
 });
+
+router.get('/inspiration/delete/:id', (req, res, next) => {
+  const id = req.params.id
+  Inspiration.findByIdAndDelete(id)
+      .then(() => {
+          // redirect to the list
+          res.redirect('/inspiration')
+      })
+      .catch(err => {
+          next(err)
+      })
+});
+
+
 
 module.exports = router;
