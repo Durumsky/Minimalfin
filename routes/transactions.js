@@ -18,68 +18,12 @@ router.get("/wallet", isLoggedIn, (req, res) => {
   req.session.user = req.user;
   let total = 0;
 
-  let groceriesTotal = 0;
-  let restaurantTotal = 0;
-  let goingOutTotal = 0;
-  let shoppingTotal = 0;
-  let transportationTotal = 0;
-  let homeTotal = 0;
-  let healthTotal = 0;
-  let sportTotal = 0;
-  let subscriptionsTotal = 0;
-  let otherTotal = 0
-
-  Transaction.find({ user: req.user._id }).then((transactionsFromDB) => {
+  Transaction.find({ user: req.user._id })
+  .then((transactionsFromDB) => {
     transactionsFromDB.forEach(function (trans) {
-        total += trans.transaction;
-  
-      if (trans.tag === 'groceries'){
-        groceriesTotal += trans.transaction;
-      }
+        total += trans.transaction});
 
-      if (trans.tag === 'restaurant') {
-        restaurantTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'going-out') {
-        goingOutTotal += trans.transaction;
-      } 
-
-      if (trans.tag === 'shopping') {
-        shoppingTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'transportation') {
-        transportationTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'home') {
-        homeTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'health') {
-        healthTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'sport') {
-        sportTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'subscriptions') {
-        subscriptionsTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'other') {
-        otherTotal += trans.transaction;
-      }
-
-      console.log(total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal)
-
-      return total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal;
-    });
-
-
-    Transaction.find({ user: req.user._id })
+      Transaction.find({ user: req.user._id })
       .populate("user")
       .sort({ $natural: -1 })
       .limit(5)
@@ -88,75 +32,21 @@ router.get("/wallet", isLoggedIn, (req, res) => {
           transactions: transactionsFromDB,
           result: total,
         });
-      });
+      })
   });
-})
+});
 
 router.get("/walletShowall", isLoggedIn, (req, res) => {
   req.session.user = req.user;
   let total = 0;
-  //"Groceries", "Restaurant", "Going out", "Shopping", "Transportation", "Home", "Health", "Sport", "Subscriptions", "Other"
-  let groceriesTotal = 0;
-  let restaurantTotal = 0;
-  let goingOutTotal = 0;
-  let shoppingTotal = 0;
-  let transportationTotal = 0;
-  let homeTotal = 0;
-  let healthTotal = 0;
-  let sportTotal = 0;
-  let subscriptionsTotal = 0;
-  let otherTotal = 0
 
-  Transaction.find({ user: req.user._id }).then((transactionsFromDB) => {
+
+
+  Transaction.find({ user: req.user._id })
+    .then((transactionsFromDB) => {
     transactionsFromDB.forEach(function (trans) {
-
-      total += trans.transaction;
+      total += trans.transaction});
      
-
-      if (trans.tag === 'groceries'){
-        groceriesTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'restaurant') {
-        restaurantTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'going-out') {
-        goingOutTotal += trans.transaction;
-      } 
-
-      if (trans.tag === 'shopping') {
-        shoppingTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'transportation') {
-        transportationTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'home') {
-        homeTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'health') {
-        healthTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'sport') {
-        sportTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'subscriptions') {
-        subscriptionsTotal += trans.transaction;
-      }
-
-      if (trans.tag === 'other') {
-        otherTotal += trans.transaction;
-      }
-
-      console.log(total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal)
-
-      return total, groceriesTotal, restaurantTotal, goingOutTotal, shoppingTotal, transportationTotal,  homeTotal, healthTotal, sportTotal, subscriptionsTotal, otherTotal;
-    });
   Transaction.find({ user: req.user._id })
       .populate("user")
       .sort({ $natural: -1 })
