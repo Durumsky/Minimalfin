@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .logo-image{
   width: auto;
   height: auto;
@@ -144,10 +148,21 @@ body
   font-size: 22px;
 }
 
+
+.container {
+  height: 100vh;
+}
+
+.chart-wrapper {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+=======
 /*
  * And let's slide it in from the left
  */
 #menuToggle input:checked ~ ul
 {
   transform: none;
+
 }
