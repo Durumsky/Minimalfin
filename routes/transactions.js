@@ -60,12 +60,11 @@ router.get("/walletShowall", isLoggedIn, (req, res) => {
 })
 
 router.post("/transaction", (req, res, next) => {
-    const { transaction, sign, tag } = req.body;
+    const { transaction, tag } = req.body;
     const currentUser = req.session.user
   
     Transaction.create({
       transaction: transaction,
-      tag: tag,
       user: currentUser
     
     })
