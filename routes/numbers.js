@@ -38,7 +38,8 @@ router.get("/numbers", isLoggedIn, (req, res) => {
     transactionsFromDB.forEach(function (trans) {
       //console.log(trans.tag, trans.user, currentUser._id)
 
-      Transaction.find({ user: req.user._id }).then((transactionsFromDB) => {
+      Transaction.find({ user: req.user._id })
+      .then((transactionsFromDB) => {
         transactionsFromDB.forEach(function (trans) {
           if (trans.tag === "Groceries") {
             groceriesTotal += trans.transaction;
