@@ -23,7 +23,7 @@ router.get("/numbers", isLoggedIn, (req, res) => {
   //variables:
   let groceriesTotal = 0;
   let restaurantTotal = 0;
-  let goingOutTotal = 0;
+  let entertainmentTotal = 0;
   let shoppingTotal = 0;
   let transportationTotal = 0;
   let homeTotal = 0;
@@ -40,50 +40,50 @@ router.get("/numbers", isLoggedIn, (req, res) => {
 
       Transaction.find({ user: req.user._id }).then((transactionsFromDB) => {
         transactionsFromDB.forEach(function (trans) {
-          if (trans.tag === "groceries") {
+          if (trans.tag === "Groceries") {
             groceriesTotal += trans.transaction;
           }
 
-          if (trans.tag === "restaurant") {
+          if (trans.tag === "Restaurant") {
             restaurantTotal += trans.transaction;
           }
 
-          if (trans.tag === "going-out") {
-            goingOutTotal += trans.transaction;
+          if (trans.tag === "Entertainment") {
+            entertainmentTotal += trans.transaction;
           }
 
-          if (trans.tag === "shopping") {
+          if (trans.tag === "Shopping") {
             shoppingTotal += trans.transaction;
           }
 
-          if (trans.tag === "transportation") {
+          if (trans.tag === "Transportation") {
             transportationTotal += trans.transaction;
           }
 
-          if (trans.tag === "home") {
+          if (trans.tag === "Home") {
             homeTotal += trans.transaction;
           }
 
-          if (trans.tag === "health") {
+          if (trans.tag === "Health") {
             healthTotal += trans.transaction;
           }
 
-          if (trans.tag === "sport") {
+          if (trans.tag === "Sport") {
             sportTotal += trans.transaction;
           }
 
-          if (trans.tag === "subscriptions") {
+          if (trans.tag === "Subscriptions") {
             subscriptionsTotal += trans.transaction;
           }
 
-          if (trans.tag === "other") {
+          if (trans.tag === "Other") {
             otherTotal += trans.transaction;
           }
 
           var allTagsTotals = {
             groceries: groceriesTotal,
             restaurant: restaurantTotal,
-            goingOut: goingOutTotal,
+            entertainment: entertainmentTotal,
             shopping: shoppingTotal,
             transportation: transportationTotal,
             home: homeTotal,
