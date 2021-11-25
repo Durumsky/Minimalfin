@@ -23,19 +23,18 @@
   </nav>
 </section>
 
-
+<section class = "inspirations-list">
+  {{#each inspirations}}
+  <h5>{{tag}}</h5>
+  <p>{{text}}</p>
+   {{/each}}
+</section>
 
 <section class="inspiration-form" >
 
   <form action="/inspiration" method="POST">
-
-  <input
-      id="inspiration"
-      type="text"
-      step="01"
-      name="inspiration"
-      placeholder="Add your idea here"
-    />
+  <textarea id='inspiration' rows='10', name='text' placeholder="Add your idea here"></textarea>
+  <br>
   <select name="tag" id="tag">
     
     <option value="groceries">Groceries</option>
@@ -51,8 +50,11 @@
   
   </select>
 
-  <button>Add your idea</button>
+  <button type="submit">Add your idea</button>
 
   </form>
 
 </section>
+
+
+
