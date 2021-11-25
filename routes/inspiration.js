@@ -111,7 +111,7 @@ router.get("/inspiration", isLoggedIn, (req, res) => {
       .limit(5)
       .then((inspirationsFromDB) => {
         res.render("inspiration", {
-          inspirations: inspirationsFromDB, biggestTag: biggestTag
+          inspirations: inspirationsFromDB, biggestTag: biggestTag,
         });
       });
   });

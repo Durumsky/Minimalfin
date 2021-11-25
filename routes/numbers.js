@@ -99,6 +99,8 @@ router.get("/numbers", isLoggedIn, (req, res) => {
               return allTagsTotals[a] === biggestExpense;
             });
 
+            
+            biggestTag = trans.tag
             if (trans.tag === expense && trans.user === currentUser._id) {
               biggestTag = trans.tag
             }     
@@ -112,7 +114,17 @@ router.get("/numbers", isLoggedIn, (req, res) => {
       .limit(5)
       .then((inspirationsFromDB) => {
         res.render("numbers", {
-          inspirations: inspirationsFromDB, biggestTag: biggestTag, 
+          inspirations: inspirationsFromDB, 
+          biggestTag: biggestTag, 
+          groceries: groceriesTotal,
+          restaurant: restaurantTotal,
+          entertainment: entertainmentTotal,
+          shopping: shoppingTotal,
+          transportation: transportationTotal,
+          home: homeTotal,
+          health: healthTotal,
+          subscriptions: subscriptionsTotal,
+          other: otherTotal,
         });
       });
   });
