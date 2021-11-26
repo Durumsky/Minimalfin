@@ -1,64 +1,188 @@
 body {
   margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  background: #3b4465;
+  font-size: 18px;
+}
+
+.navbar-brand {
+  background-color: white;
 }
 
 .logo-image {
   width: auto;
   height: auto;
   text-align: center;
+  background-color: white;
 }
 #container-home {
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 #signup {
   display: flex;
   justify-content: center;
-  margin-left:50px;
-  margin-right:50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 #login {
   display: flex;
   justify-content: center;
-  margin-left:50px;
-  margin-right:50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
-#form-container{
+#form-container {
   display: flex;
   flex-direction: column;
   margin-top: 100px;
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5%;
 
-  justify-content:flex-start;
+  justify-content: flex-start;
   height: 300px;
 }
-#form-container h2{
+#form-container h3 {
   text-align: center;
+  color: #3b4465;
 }
-#form-container input{
- margin-top: 5x;
- margin-bottom: 5px;
-}
-#button-signup{
-  margin-top: 20px;
- }
 
- #button-login {
-   margin-top: 46px
- }
+input {
+  border-radius: 5px;
+  background-color: #eee7e7;
+  border: none;
+  text-align: center;
+  font-size: 18px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 3px;
+}
+select {
+  border-radius: 5px;
+  background-color: #eee7e7;
+  border: none;
+  text-align: center;
+  font-size: 18px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 3px;
+}
+#form-container input {
+  margin-top: 5x;
+  margin-bottom: 5px;
+}
+button {
+  color: #fbfdff;
+  background: #6374af;
+  border-radius: 5px;
+  border: none;
+  margin: 30px auto 10px;
+  font-size: 18px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#button-signup {
+  margin-top: 20px;
+}
+
+#button-login {
+  margin-top: 46px;
+}
 
 #inspiration {
-  height: 100px;
-  font-size: 14pt;
-  min-height: 200px;
+  height: 200px;
+  width: 700px;
+  font-size: 18px;
+  
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Montserrat", sans-serif;
+.section-title {
+  color: white;
+}
+.text-white {
+  color: white;
+  text-align: center;
+}
+.container-wallet {
+  margin-top: 30px;
+}
+.navigation {
+  margin-top: 30px;
 }
 
-#menuToggle {
+.transaction-form {
+  display: flex;
+  justify-content: center;
+}
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.balance {
+  background-color: white;
+  color: #3b4465;
+  border-radius: 5px;
+  border: none;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.show-all {
+  margin-top: 20px;
+}
+
+.container-inspiration {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#delete-remove {
+  display: flex;
+  justify-content: center;
+}
+
+.inspiration-posts {
+  color: white;
+  width: 700px;
+}
+
+.inspiration-form{
+  margin-top: 100px;
+}
+
+#chart {
+  margin-top: 50px;
+}
+ul li{
+  list-style-type: none;
+}
+
+
+.menuToggle {
   display: block;
   position: relative;
   top: 0px;
@@ -70,18 +194,18 @@ body {
   user-select: none;
 }
 
-#menuToggle a {
+.menuToggle a {
   text-decoration: none;
   color: #232323;
 
   transition: color 0.3s ease;
 }
 
-#menuToggle a:hover {
+.menuToggle a:hover {
   color: tomato;
 }
 
-#menuToggle input {
+.menuToggle input {
   display: block;
   width: 40px;
   height: 32px;
@@ -100,7 +224,7 @@ body {
 /*
  * Just a quick hamburger
  */
-#menuToggle span {
+.menuToggle span {
   display: block;
   width: 33px;
   height: 4px;
@@ -118,11 +242,11 @@ body {
     background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
 }
 
-#menuToggle span:first-child {
+.menuToggle span:first-child {
   transform-origin: 0% 0%;
 }
 
-#menuToggle span:nth-last-child(2) {
+.menuToggle span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
 
@@ -130,7 +254,7 @@ body {
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-#menuToggle input:checked ~ span {
+.menuToggle input:checked ~ span {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
   background: #232323;
@@ -139,7 +263,7 @@ body {
 /*
  * But let's hide the middle one.
  */
-#menuToggle input:checked ~ span:nth-last-child(3) {
+.menuToggle input:checked ~ span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
@@ -147,7 +271,7 @@ body {
 /*
  * Ohyeah and the last one should go the other direction
  */
-#menuToggle input:checked ~ span:nth-last-child(2) {
+.menuToggle input:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
 
@@ -155,7 +279,7 @@ body {
  * Make this absolute positioned
  * at the top left of the screen
  */
-#menu {
+.menu {
   position: absolute;
   width: 300px;
   margin: -100px 0 0 -100px;
@@ -173,8 +297,8 @@ body {
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
 
-#menu li {
-  padding: 10px 0;
+.menu li {
+  padding: 10px 10px 10px 200px;
   font-size: 22px;
 }
 
@@ -191,7 +315,7 @@ body {
 /*
  * And let's slide it in from the left
  */
-#menuToggle input:checked ~ ul {
+.menuToggle input:checked ~ ul {
   transform: none;
 }
 
