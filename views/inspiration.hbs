@@ -6,14 +6,14 @@
           class="img-fluid"/>
       </div>
     </a>
-    <nav role="navigation">
-  <div id="menuToggle">
+  <nav class="navigation">
+  <div class="menuToggle">
      <input type="checkbox" />
      <span></span>
     <span></span>
     <span></span>
     
-      <ul id="menu"> 
+      <ul class="menu"> 
         <a href="/wallet"><li> Wallet</li></a>
         <a href="/inspiration"><li> Inspiration</li></a>
          <a href="/numbers"><li> Numbers</li></a>
@@ -22,15 +22,17 @@
         </div>
   </nav>
 </section>
-
-<section class = "experiment">
+<div class="container-inspiration">
+<section class = "inspiration-posts">
   {{#each newArray}}
-  <h5>{{this._doc.tag}}</h5>
+  <h3>{{this._doc.tag}}</h3>
   <p>{{this._doc.text}}</p>
   {{#if owner}}
+  <div id="delete-remove">
+    <div>
  <a href="/inspiration/delete/{{this._doc._id}}"><button type="button" class="collapsible">Delete</button></a>
 <button type="button" class="collapsible">Edit</button>
- <div class= "content">
+<div class= "content">
    <p>
      <form action="/inspiration" method="POST">
   <textarea id='inspiration' rows='10', name='text'>{{this._doc.text}}</textarea>
@@ -54,6 +56,9 @@
 
   </form>
    </p>
+   </div>
+</div>
+ 
  </div>
   {{/if}}
    {{/each}}
@@ -64,6 +69,8 @@
   <form action="/inspiration" method="POST">
   <textarea id='inspiration' rows='10', name='text' placeholder="Add your idea here"></textarea>
   <br>
+  <div id="delete-remove">
+    <div>
   <select name="tag" id="tag">
     
     <option value="Groceries">Groceries</option>
@@ -80,10 +87,13 @@
   </select>
 
   <button type="submit">Add your idea</button>
+  </div>
+  </div>
 
   </form>
 
 </section>
+</div>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");

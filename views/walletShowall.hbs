@@ -7,13 +7,13 @@
       </div>
     </a>
     <nav class="navigation">
-  <div id="menuToggle">
+  <div class="menuToggle">
      <input type="checkbox" />
-     <span></span>
+    <span></span>
     <span></span>
     <span></span>
     
-      <ul id="menu"> 
+      <ul class="menu"> 
         <a href="/wallet"><li> Wallet</li></a>
         <a href="/inspiration"><li> Inspiration</li></a>
          <a href="/numbers"><li> Numbers</li></a>
@@ -23,7 +23,7 @@
   </nav>
 </section>
 
-
+<div class="container-wallet">
 <section class="transaction-form" >
 
   <form action="/transaction" method="POST">
@@ -31,10 +31,9 @@
   <input
       id="transaction"
       type="number"
-      step="01"
+      step="any" 
       name="transaction"
       placeholder="0€"
-      value= 0
     />
   <select name="tag" id="tag">
     
@@ -51,21 +50,23 @@
   
   </select>
 
-<button>Add your expenses</button>
+  <button>Add Expenses</button>
 
   </form>
 
 </section>
 
 <section class="transactions-list">
+  <h2 class="balance">Balance: -{{result}}€</h1>
+  <h2 class="section-title">Expenses</h2>
+  <div class="text-white">
   {{#each transactions}}
-  <h5><span>-</span>{{transaction}}</h5>
-  <p>{{tag}}</p>
+  <p><b>-{{transaction}}€</b> → {{tag}}</p>
   {{/each}}
-   <form action="/wallet">
-    <input type="submit" value="Show less" />
+  </div>
+ <form action="/wallet">
+    <input class="show-all" type="submit" value="Show less" />
 </form>
 
-<h1>Balance: -{{result}}</h1>
-
-  </section>
+</section>
+</div>

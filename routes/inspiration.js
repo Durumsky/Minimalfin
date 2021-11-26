@@ -152,7 +152,7 @@ router.post('/inspiration/edit/:id', (req, res, next) => {
 
   const { text, tag, user } = req.body
 
-  Celebrity.findByIdAndUpdate(id, {
+  Inspiration.findByIdAndUpdate(id, {
       text,
       tag,
       user,
